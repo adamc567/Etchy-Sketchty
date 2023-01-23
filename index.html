@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etchy Sketchy</title>
+    <script src="./script.js" defer></script>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div id="sketchPad" class="sketchPad">
+
+    </div>
+    <div id="optionContainer">
+            <div id="inputContainer">
+            <label for="numbers">Sketch pad size adjuster</label>
+            <input name="numbers" type="range" id="inputNumber" min="16" max="100">
+            <p>Sketchpad size: <output id="value"></output></p>
+        </div>
+        <div id="colorsContainer">
+            <label for="pixelColorPicker">Pen Color</label>
+            <input type="color" id="pixelColorPicker" value="#000000" name="pixelColorPicker">
+            <button type="button" class="colorSelector" id="blue">
+                Blue
+            </button>
+            <button type="button" class="colorSelector" id="red">
+                Red
+            </button>
+            <button type="button" class="eraser" id="eraser">
+                eraser
+            </button>
+        </div>
+        <label for="backgroundColor">Sketch pad background color</label>
+        <input type="color" id="colorPickerBackground" value ="#ebf9ff" name="backgroundColor">
+
+    </div>
+</body>
+</html>
+
+<!-- Change wording on value input -->
+<!-- add title to sketchpad -->
+<!-- label more clearly -->
