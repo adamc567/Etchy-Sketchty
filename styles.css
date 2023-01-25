@@ -15,3 +15,7 @@ body {
 #sketchPad > div:hover {
     background-color: turquoise;
 }
+
+.pixel {
+    border: 1px solid rgba(0, 0, 0, 0.057);
+}
