@@ -1,20 +1,37 @@
 
 let color = 'black';
-const pixel = document.querySelector('.sketchPad').children;
 const sketchPad = document.querySelector('.sketchPad');
 const clearBtn = document.querySelector('.clearButton')
+// const pixel = document.querySelectorAll('.pixel');
 
 function divCreator(e) {
 let divBlock
-    sketchPad.innerHTML="";
+let pen = 1
+sketchPad.innerHTML="";
     for (let i = 1; i <= e; i++) {
         divBlock = document.createElement('div');
         divBlock.classList.add('pixel');
         sketchPad.appendChild(divBlock);
-        divBlock.addEventListener('mouseover', function(a){
-                a.target.style.background = color;
-            })}}
-   
+    }
+    sketchPad.addEventListener('click', () => {
+    let divvies = document.querySelectorAll('.pixel')
+    if (pen === 1) {
+    divvies.forEach(divBlock => 
+        divBlock.addEventListener('mouseover', () =>
+        divBlock.style.background = color))
+    console.log(pen)
+    return pen = 0
+    
+}
+    else if (pen == 0) {
+    console.log(pen)
+    divvies.forEach(divBlock => 
+        divBlock.removeEventListener('mouseover', () =>
+        divBlock.style.background = color))
+     return   pen = 1
+    // console.log(pen)
+    }})
+            }   
 
 function gridCreator(numberInput) {
    sketchPad.style.gridTemplateRows = (`repeat(${numberInput}, 1fr`);
@@ -26,15 +43,11 @@ function gridDestroyer() {
     gridCreator(50);
     divCreator(2500);
 }
-
-
-// // pen toggle
+// pen toggle
 // sketchPad.addEventListener('click', function() 
 // {
 // if (pen === 0) {
 //     pen = 1;
-//     // sketchPadDiv.addEventListener('mouseover', function(a){
-//     //     a.target.style.background = color;})
 
 //     console.log(pen)
 // } else {
@@ -69,8 +82,4 @@ eraserBtn.addEventListener('click', () => color = backgroundColor.value);
 const backgroundColor = document.getElementById('colorPickerBackground')
 backgroundColor.addEventListener('mouseout', () => sketchPad.style.background= backgroundColor.value);
 
-// pixel.addEventListener('click', () =>
-// pixel.style.backgroundColor = color)
-
 window.onload = gridDestroyer();
-// const pixel = document.querySelector('.sketchPad').childr
