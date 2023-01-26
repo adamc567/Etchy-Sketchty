@@ -5,37 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etchy Sketchy</title>
-    <!-- <script src="./script.js" defer></script> -->
+    <script src="./script.js" defer></script>
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
+    <h1 class="header">Sketchpad</h1>
+<div class="sketchpadContainer">
     <div id="sketchPad" class="sketchPad">
-
     </div>
+</div>
     <div id="optionContainer">
             <div id="inputContainer">
-            <label for="numbers">Sketch pad size adjuster</label>
-            <input name="numbers" type="range" id="inputNumber" min="16" max="100">
-            <p>Sketchpad size: <output id="value"></output></p>
+            <p class="size" for="numbers">SketchPad size adjuster</p>
+            <input class="size" name="numbers" type="range" id="inputNumber" min="16" max="100">
+            <p id="sizeOutput" class="size">SketchPad size: 
+                <output id="value">50 x 50</output>
+            </p>
         </div>
         <div id="colorsContainer">
-            <label for="pixelColorPicker">Pen Color</label>
-            <input type="color" id="pixelColorPicker" value="#000000" name="pixelColorPicker">
+            <p id="colorPickerLabel" for="pixelColorPicker">Pen Color</p>
+            <input style="display: block" type="color" id="pixelColorPicker" value="#CF5F5F" name="pixelColorPicker">
             <button type="button" class="colorSelector" id="rainbow">
                 make it fun!
-            </button>
-            <button type="button" class="colorSelector" id="red">
-                Red
             </button>
             <button type="button" class="eraser" id="eraser">
                 eraser
             </button>
         </div>
-        <label for="backgroundColor">Sketch pad background color</label>
+        <label id="backgroundColorPicker" for="backgroundColor">SketchPad Background color</label>
         <input type="color" id="colorPickerBackground" value ="#ebf9ff" name="backgroundColor">
         <button class="clearButton">Clear!</button>
     </div>
-    <script src="./script.js" ></script>
 
 </body>
 </html>

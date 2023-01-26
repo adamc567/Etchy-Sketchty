@@ -17,22 +17,26 @@ sketchPad.innerHTML="";
     let divvies = document.querySelectorAll('.pixel')
     if (pen === 1) {
     divvies.forEach(divBlock => 
-        divBlock.addEventListener('mouseover', () =>
-        divBlock.style.background = color))
+        divBlock.addEventListener('mouseover', divHover(divBlock), true))
+        pen=0
     console.log(pen)
-    return pen = 0
-    
 }
     else if (pen == 0) {
+        divBlock.removeEventListener('mouseover', divHover(divBlock), true)
+     pen = 1
+     divBlock.classList.remove('pixel');
     console.log(pen)
-    divvies.forEach(divBlock => 
-        divBlock.removeEventListener('mouseover', () =>
-        divBlock.style.background = color))
-     return   pen = 1
-    // console.log(pen)
     }})
-            }   
+}
+    function divHover(a){
+    a.addEventListener('mouseover', () =>
+    a.style.background = color)
 
+            }   
+// function divHover(a){
+//     a.addEventListener('mouseover', () =>
+//     a.style.background = color)
+// }
 function gridCreator(numberInput) {
    sketchPad.style.gridTemplateRows = (`repeat(${numberInput}, 1fr`);
    sketchPad.style.gridTemplateColumns = (`repeat(${numberInput}, 1fr)`);
