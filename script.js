@@ -1,89 +1,102 @@
 
-let color = 'black';
 const sketchPad = document.querySelector('.sketchPad');
-const clearBtn = document.querySelector('.clearButton')
-// const pixel = document.querySelectorAll('.pixel');
+const clearBtn = document.querySelector('.clearButton');
+const sizeAdjuster = document.querySelector('#inputNumber');
+const adjusterDisplay = document.querySelector('#value')
+const pixelColorPicker = document.getElementById('pixelColorPicker');
+const rainbowBtn = document.getElementById('rainbow');
+const eraserBtn = document.getElementById('eraser');
+const backgroundColor = document.getElementById('colorPickerBackground')
 
-function divCreator(e) {
-let divBlock
-let pen = 1
-sketchPad.innerHTML="";
-    for (let i = 1; i <= e; i++) {
-        divBlock = document.createElement('div');
-        divBlock.classList.add('pixel');
-        sketchPad.appendChild(divBlock);
-    }
-    sketchPad.addEventListener('click', () => {
-    let divvies = document.querySelectorAll('.pixel')
-    if (pen === 1) {
-    divvies.forEach(divBlock => 
-        divBlock.addEventListener('mouseover', divHover(divBlock), true))
-        pen=0
-    console.log(pen)
-}
-    else if (pen == 0) {
-        divBlock.removeEventListener('mouseover', divHover(divBlock), true)
-     pen = 1
-     divBlock.classList.remove('pixel');
-    console.log(pen)
-    }})
-}
-    function divHover(a){
-    a.addEventListener('mouseover', () =>
-    a.style.background = color)
+let numberInput = 58;
+let color = '#CF5F5F';
+let rainbow = false;
+let eraser = false;
 
-            }   
-// function divHover(a){
-//     a.addEventListener('mouseover', () =>
-//     a.style.background = color)
-// }
-function gridCreator(numberInput) {
-   sketchPad.style.gridTemplateRows = (`repeat(${numberInput}, 1fr`);
-   sketchPad.style.gridTemplateColumns = (`repeat(${numberInput}, 1fr)`);
-   console.log(numberInput)
-}
 function gridDestroyer() {
     sketchPad.innerHTML=""
-    gridCreator(50);
-    divCreator(2500);
+    gridCreator(sizeAdjuster.value);
 }
-// pen toggle
-// sketchPad.addEventListener('click', function() 
-// {
-// if (pen === 0) {
-//     pen = 1;
-
-//     console.log(pen)
-// } else {
-//     pen = 0;
-//     console.log(pen)
-//     return pen
-// }
-// })
-
-const numberInput = document.getElementById('inputNumber');
-numberInput.addEventListener('mousemove', function(){
-    valueoutPut.innerHTML = `${numberInput.value} x ${numberInput.value}`;
-})
-
-const valueoutPut = document.getElementById('value');
-let outPut = `${numberInput.value} x ${numberInput.value}`;
-
-numberInput.addEventListener('click', () => gridCreator(numberInput.value));
-numberInput.addEventListener('click', () => divCreator(numberInput.value * numberInput.value))
 
 clearBtn.addEventListener('click', () => gridDestroyer());
 
-const pixelColorPicker = document.getElementById('pixelColorPicker');
+sizeAdjuster.addEventListener('mousemove', sizeAdjusterHelper);
+
+sizeAdjuster.addEventListener('mousemove', () => adjusterDisplay.innerHTML = `${sizeAdjuster.value} x ${sizeAdjuster.value}`
+)
+
 pixelColorPicker.addEventListener('mouseout', () => color = pixelColorPicker.value)
 
-const rainbowBtn = document.getElementById('rainbow');
-rainbowBtn.addEventListener('click', () => color = 'blue')
+rainbowBtn.addEventListener('click', rainbowMaker)
 
-const eraserBtn = document.getElementById('eraser');
-eraserBtn.addEventListener('click', () => color = backgroundColor.value);
+eraserBtn.addEventListener('click', buttonSelect)
 
-const backgroundColor = document.getElementById('colorPickerBackground')
 backgroundColor.addEventListener('mouseout', () => sketchPad.style.background= backgroundColor.value);
+backgroundColor.addEventListener('mouseout', () => gridCreator(sizeAdjuster.value))
+let divBlock = sketchPad.childNodes;
 
-window.onload = gridDestroyer();
+let mouseDown = false
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
+
+function gridCreator(numberInput) {
+sketchPad.innerHTML = '';
+sketchPad.style.gridTemplateRows = (`repeat(${numberInput}, 1fr`);
+sketchPad.style.gridTemplateColumns = (`repeat(${numberInput}, 1fr)`);
+for (let i =0; i <= numberInput * numberInput; i++) {
+    let divBlock = document.createElement('div')
+    divBlock.classList.add('pixelHover')
+    divBlock.addEventListener('mouseover', colorPicker)
+     divBlock.addEventListener('mousedown', colorPicker)
+     sketchPad.appendChild(divBlock)
+ }}
+
+function sizeAdjusterHelper(e) {
+if (e.type === 'mousemove' && !mouseDown) return;
+gridCreator(sizeAdjuster.value);
+ }
+
+function colorPicker (e) {
+    if (e.type === 'mouseover' && !mouseDown) return;
+    if (rainbow === true) {
+        const R = Math.floor(Math.random() * 256);
+        const G = Math.floor(Math.random() * 256);
+        const B = Math.floor(Math.random() * 256);
+        color = `rgb(${R}, ${G}, ${B})`;
+        e.target.style.background = color
+        return
+    } else if(eraser === true) {
+    color = `${backgroundColor.value}`;
+    e.target.style.background = color;
+    return
+} else {
+    e.target.style.backgroundColor = color;
+}
+}
+
+function rainbowMaker() {
+    if (rainbow === false){
+        rainbow = true;
+        eraser = false;
+        eraserBtn.classList.remove('activeButton')
+        rainbowBtn.classList.add('activeButton')
+        return
+    } else if (rainbow === true)
+        rainbow = false
+        rainbowBtn.classList.remove('activeButton')
+        color = pixelColorPicker.value;
+}
+function buttonSelect (e) {
+    if (eraser === false){
+        eraser = true;
+        rainbow = false
+        rainbowBtn.classList.remove('activeButton')
+        eraserBtn.classList.add('activeButton')
+        return
+    } else {
+        eraser = false
+        eraserBtn.classList.remove('activeButton')
+        color = pixelColorPicker.value;
+    }
+}
+window.onload = () => gridCreator(50);
