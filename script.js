@@ -8,22 +8,17 @@ const rainbowBtn = document.getElementById('rainbow');
 const eraserBtn = document.getElementById('eraser');
 const backgroundColor = document.getElementById('colorPickerBackground')
 
-let numberInput = 58;
 let color = '#CF5F5F';
 let rainbow = false;
 let eraser = false;
 
-function gridDestroyer() {
-    sketchPad.innerHTML=""
-    gridCreator(sizeAdjuster.value);
-}
-
-clearBtn.addEventListener('click', () => gridDestroyer());
+clearBtn.addEventListener('click', () => gridCreator(sizeAdjuster.value));
 
 sizeAdjuster.addEventListener('mousemove', sizeAdjusterHelper);
+sizeAdjuster.addEventListener('click', sizeAdjusterHelper);
 
-sizeAdjuster.addEventListener('mousemove', () => adjusterDisplay.innerHTML = `${sizeAdjuster.value} x ${sizeAdjuster.value}`
-)
+sizeAdjuster.addEventListener('click', () => adjusterDisplay.innerHTML = `${sizeAdjuster.value} x ${sizeAdjuster.value}`)
+sizeAdjuster.addEventListener('mousemove', () => adjusterDisplay.innerHTML = `${sizeAdjuster.value} x ${sizeAdjuster.value}`)
 
 pixelColorPicker.addEventListener('mouseout', () => color = pixelColorPicker.value)
 
@@ -32,8 +27,7 @@ rainbowBtn.addEventListener('click', rainbowMaker)
 eraserBtn.addEventListener('click', buttonSelect)
 
 backgroundColor.addEventListener('mouseout', () => sketchPad.style.background= backgroundColor.value);
-backgroundColor.addEventListener('mouseout', () => gridCreator(sizeAdjuster.value))
-let divBlock = sketchPad.childNodes;
+backgroundColor.addEventListener('click', () => gridCreator(sizeAdjuster.value))
 
 let mouseDown = false
 document.body.onmousedown = () => (mouseDown = true)
@@ -99,4 +93,4 @@ function buttonSelect (e) {
         color = pixelColorPicker.value;
     }
 }
-window.onload = () => gridCreator(50);
+window.onload = () => gridCreator(58);
